@@ -9,7 +9,40 @@
 
 <body>
 
-    <h1>Campo Minato Dom</h1>
+    <header>
+        <!-- HEADER TITLE PAGINA -->
+        <div class="title">
+
+            <img src="img/logo-boolean.png" alt="logo boolean">
+            <h1>Campo Minato</h1>
+an
+        </div>
+
+        <!-- MENU LIVELLI UTENTE -->
+        <div class="user-lvl">
+
+            <label for="levels">Seleziona Livello</label>
+            <select name="levels" id="user-level">
+                <option value="1">Easy</option>
+                <option value="2">Hard</option>
+                <option value="3">Crazy</option>
+            </select>
+            
+            <button id="play-btn">Gioca!</button>
+
+        </div>
+
+    </header>
+
+    <main>
+        <!-- QUI CI SARANNO LE CASELLE -->
+        <div id="main-grid">
+            <!-- <div class="square"><span>num</span></div> -->
+        </div>
+
+        <div id="user-output"></div>
+    </main>
+
 
     <script type="text/javascript" src="js/script.js"></script>
     
