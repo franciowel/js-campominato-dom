@@ -23,11 +23,23 @@ header{
 .user-lvl{
     display: flex;
     flex-direction: row;
+    width: 20%;
+    justify-content: space-between;
     height: 50px;
+    padding: 0.7rem;
+}
+
+.play-btn{
+    margin-right: 0.5rem;
+}
+
+.play-btn{
+    margin-left: 0.5rem;
 }
 
 header img{
     height: 50px;
+    margin-right: 1rem;
 }
 
 /* MAIN */
@@ -36,7 +48,7 @@ main {
     height: 800px;
     padding: 50px;
 }
-.my-grid {
+#main-grid {
     width: 600px;
     height: 600px;
     margin: 0 auto;
@@ -50,6 +62,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .square.easy {
