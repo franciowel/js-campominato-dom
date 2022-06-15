@@ -1,0 +1,84 @@
+/* RESET */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.title{
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: row;
+}
+
+.user-lvl{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+}
+
+header img{
+    height: 50px;
+}
+
+/* MAIN */
+main {
+    background-color: lightblue;
+    height: 800px;
+    padding: 50px;
+}
+.my-grid {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+/* SQUARES */
+.square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square.easy {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+    border: solid black 1px;
+}
+
+.square.medium {
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+    border: solid black 1px;
+}
+
+.square.crazy {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+    border: solid black 1px;
+}
+
+.blue {
+    background-color: aqua;
+}
+.red {
+    background-color: red;
+}
+
+#user-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 2rem;
+}

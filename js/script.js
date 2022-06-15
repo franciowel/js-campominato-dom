@@ -12,20 +12,124 @@
 
 // // START
 
-// SELEZIONO IL LIVELLO DALLA SCELTA USER
-const userLevel = prompt('Scegli un livello (1-2-3)');
-const numbofBombs = 16;
-gameMaxRange = 0;
+// HTML REF
+const mainGrid = document.getElementById('main-grid');
+const playButton = document.getElementById('play-btn');
+const userMessageOut = document.querySelector('#user-output');
+// ARRAY NUM CLICCATI
+const clickedNumbers = [];
 
-// se liv 1 - num da 1 a 100
-if(userLevel === '1') {
-    gameMaxRange = 100;
-    // se liv 2 - num da 1 a 81
-} else if(userLevel === '2') {
-    gameMaxRange = 81;
-    // se liv 3 - num da 1 a 49
-} else if(userLevel === '3') {
-    gameMaxRange = 49;
+
+// azione parte da playbtn -> event listeners playbutton
+playButton.addEventListener('click', 
+function() {
+    // reset grigla
+    mainGrid.innerHTML = '';
+    // SELEZIONO DIFFICOLTA DA USERLEVEL
+    const userLevel = document.getElementById('user-level').value;
+    // se liv 1 - num da 1 a 100
+    if (userLevel === '1') {
+        gameMaxRange = 100;
+        bombs = bombsGenesis(16, 1, 100);
+        gamesContinue = true;
+        createGrid(gameMaxRange, 'easy');
+    } else if (userLevel === '2') {
+        gameMaxRange = 81;
+        bombs = bombsGenesis(16, 1, gameMaxRange);
+        gamesContinue = true;
+        createGrid(gameMaxRange, 'medium');
+    } else if (userLevel === '3') {
+        gameMaxRange = 49;
+        bombs = bombsGenesis(16, 1, gameMaxRange);
+        gamesContinue = true;
+        createGrid(gameMaxRange, 'crazy');
+    }
 }
+)
+
+let bombs=[];
+// GENERO 16 BOMBE
+    // genero un array di 16 bombe
+    function bombsGenesis(numbofBombs, rangeMin, rangeMax) {
+        
+        const randomNumbersArray = [];
     
-console.log(gameMaxRange);
+        while(randomNumbersArray.length < numbofBombs) {
+            // CREARE NUM RANDOM DA RANGEMIN A RANGEMAX
+            // rangeMin range minimo per i numeri random generati
+            // rageMax range massimo dei numeri random generati
+            const randomNum = getRndInteger(rangeMin, rangeMax);
+            // PUSHIAMO SOLO SE NUM NON GIA PRESENTE
+            if(!randomNumbersArray.includes(randomNum)) {
+                randomNumbersArray.push(randomNum);
+            }
+    
+        }
+        // return : array di numeri random con lunghezza numbofBombs
+        return randomNumbersArray;
+    }
+    
+// FUNZIONE CHE GENERA RANDOM NUMBERS
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+        
+}
+
+// FUNZIONE CHE GENERA LA GRIGLIA IN HTML
+function createGrid(gameMaxRange, userLevel) {
+    for(let i = 1; i <= gameMaxRange; i++) {
+        // creo squares
+        // <div class="square"><span>12</span></div>
+        const newSquare = document.createElement('div');
+        // popolare il numero
+        newSquare.innerHTML = `<span>${i}</span>`;
+        // add classe square
+        newSquare.classList.add('square', userLevel);
+        // li collego/appendo
+        mainGrid.append(newSquare);
+        }
+    let newSquareF = document.querySelectorAll('.square')
+    for(let i = 0; i < newSquareF.length; i++) {
+        let squares = newSquareF[i];
+        if (!bombs.includes(manageSquareClick)) {
+            squares.addEventListener('click', manageSquareClick);
+        } else if (bombs.includes(manageSquareClick)) {
+            alert('hai perso');
+        }
+    }
+        
+}
+
+function manageSquareClick() {
+    // prendo il numero dentro lo span che è figlio dell'elemento cliccato
+    const thisNumber = parseInt(this.querySelector('span').innerHTML);
+        
+    if(bombs.includes(thisNumber)) {
+        endGame();
+        this.classList.add('red');
+        document.getElementById('main-grid').removeEventListener('click', manageSquareClick)
+    } else {
+        this.classList.add('blue');
+    }
+    
+    // pusho il num in array num cliccati
+    clickedNumbers.push(thisNumber);
+    console.log(clickedNumbers);
+    
+    // se user le azzecca tutte:
+    // scrivo messaggio di fine gioco
+    if(clickedNumbers.length === gameMaxRange - 16) {
+        endGame();
+    }
+    
+        // se una cella è già stata cliccata, non può esserlo nuovamente
+        this.style.pointerEvents = 'none';
+    }
+
+function endGame() {
+    userMessageOut.innerHTML = `il tuo punteggio è: ${clickedNumbers.length}`;
+    for(let i = 0; i < gameMaxRange; i++) {
+        let allSelector = document.querySelectorAll('.square')
+        allSelector[i].removeEventListener('click', manageSquareClick)
+    }
+}
